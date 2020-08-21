@@ -49,6 +49,13 @@ ruleTester.run("eqeqeq", rule, {
         { code: "null == null", options: ["always", { null: "never" }] },
         { code: "null != null", options: ["always", { null: "never" }] },
 
+        { code: "a === undefined", options: ["always", { undefined: "always" }] },
+        { code: "undefined === undefined", options: ["always", { undefined: "always" }] },
+        { code: "a == undefined", options: ["always", { undefined: "ignore" }] },
+        { code: "undefined == undefined", options: ["always", { undefined: "ignore" }] },
+        { code: "a == undefined", options: ["always", { undefined: "never" }] },
+        { code: "undefined == undefined", options: ["always", { undefined: "never" }] },
+
         // https://github.com/eslint/eslint/issues/8020
         { code: "foo === /abc/u", options: ["always", { null: "never" }], parserOptions: { ecmaVersion: 2015 } },
 
@@ -81,6 +88,8 @@ ruleTester.run("eqeqeq", rule, {
         { code: "true != null", options: ["always", { null: "always" }], errors: [{ messageId: "unexpected", data: wantedNotEqEq, type: "BinaryExpression" }] },
         { code: "null == null", output: "null === null", options: ["always", { null: "always" }], errors: [{ messageId: "unexpected", data: wantedEqEqEq, type: "BinaryExpression" }] },
         { code: "null != null", output: "null !== null", options: ["always", { null: "always" }], errors: [{ messageId: "unexpected", data: wantedNotEqEq, type: "BinaryExpression" }] },
+        { code: "a == undefined", options: ["always", { undefined: "always" }] },
+        { code: "undefined == undefined", options: ["always", { undefined: "always" }] },
         { code: "true === null", options: ["always", { null: "never" }], errors: [{ messageId: "unexpected", data: wantedEqEq, type: "BinaryExpression" }] },
         { code: "true !== null", options: ["always", { null: "never" }], errors: [{ messageId: "unexpected", data: wantedNotEq, type: "BinaryExpression" }] },
         { code: "null === null", output: "null == null", options: ["always", { null: "never" }], errors: [{ messageId: "unexpected", data: wantedEqEq, type: "BinaryExpression" }] },
